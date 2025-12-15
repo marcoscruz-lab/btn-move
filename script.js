@@ -1,6 +1,17 @@
 const btnNao = document.getElementById('btnNao');
 let tentativas = 0;
 
+const frases = [
+    "EXPERIMENTA O SIM? 😊",
+    "NÃO? 🥺",
+    "POR QUE NÃO? 🤔",
+    "ASSISTO CREPÚSCULO COM VOCÊ 🌅",
+    "URUCUBADA KKKKKKK",
+    "NEM FEZ SENTIDO A ANTERIOR 😅",
+    "O SIM É MELHOR! 😄",
+    "TÁ BOM... JÁ ENTENDI 😞",
+]
+
 function fugir(e) {
     e.preventDefault();
     tentativas++;
@@ -16,14 +27,11 @@ function fugir(e) {
     btnNao.style.left = novoX + 'px';
     btnNao.style.top = novoY + 'px';
 
-    if (tentativas === 3) {
-        btnNao.textContent = 'NÃO? 🥺';
-    } else if (tentativas === 5) {
-        btnNao.textContent = 'EXPERIMENTA O SIM? 😊';
-    } else if (tentativas === 8) {
-        btnNao.textContent = 'O SIM É MELHOR! 😄';
-    } else if (tentativas === 10) {
-        btnNao.textContent = 'TÁ BOM... JÁ ENTENDI 😞';
+    // Mudar o texto do botão com frases engraçadas
+    if (tentativas <= frases.length) {
+        btnNao.textContent = frases[tentativas - 1];
+    } else {
+        btnNao.textContent = 'F NÃO SOBROU NADA PRO BETA';
     }
 }
 
@@ -38,7 +46,7 @@ function aceitou() {
 
     setTimeout(() => {
         window.location.href = 'https://youtu.be/Af7ieNv0wXY?t=93';
-    }, 3000);
+    }, 4000);
 }
 
 function criarGirassol() {
@@ -55,4 +63,25 @@ function criarGirassol() {
     document.body.appendChild(girassol);
 
     setTimeout(() => girassol.remove(), duracao);
+}
+
+// Easter Egg - Clicar no girassol
+let cliquesGirassol = 0;
+function easterEgg() {
+    cliquesGirassol++;
+
+    if (cliquesGirassol === 3) {
+        const easterEggMsg = document.getElementById('easterEgg');
+        easterEggMsg.classList.add('ativo');
+
+        // Criar explosão de girassóis
+        for (let i = 0; i < 20; i++) {
+            setTimeout(() => criarGirassol(), i * 50);
+        }
+
+        setTimeout(() => {
+            easterEggMsg.classList.remove('ativo');
+            cliquesGirassol = 0;
+        }, 6000);
+    }
 }

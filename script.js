@@ -1,5 +1,8 @@
 const btnNao = document.getElementById('btnNao');
+const contador = document.getElementById('contador');
+const numTentativas = document.getElementById('numTentativas');
 let tentativas = 0;
+let petalasAtivas = [];
 
 const frases = [
     "EXPERIMENTA O SIM? 😊",
@@ -10,7 +13,49 @@ const frases = [
     "NEM FEZ SENTIDO A ANTERIOR 😅",
     "O SIM É MELHOR! 😄",
     "TÁ BOM... JÁ ENTENDI 😞",
-]
+];
+
+// Iniciar com tema dia
+document.body.classList.add('dia');
+
+// Iniciar pétalas caindo suavemente
+function criarPetala() {
+    const petala = document.createElement('div');
+    petala.className = 'petala';
+    petala.textContent = '🌻';
+
+    petala.style.left = Math.random() * 100 + '%';
+    petala.style.fontSize = (Math.random() * 1 + 0.5) + 'rem';
+
+    const duracao = (Math.random() * 15 + 10) + 's';
+    const delay = Math.random() * 5 + 's';
+
+    petala.style.animationDuration = duracao;
+    petala.style.animationDelay = delay;
+
+    document.body.appendChild(petala);
+    petalasAtivas.push(petala);
+
+    // Remover após a animação
+    setTimeout(() => {
+        petala.remove();
+        petalasAtivas = petalasAtivas.filter(p => p !== petala);
+    }, (parseFloat(duracao) + parseFloat(delay)) * 1000);
+}
+
+// Criar pétalas continuamente
+function iniciarPetalas() {
+    for (let i = 0; i < 15; i++) {
+        criarPetala();
+    }
+    setInterval(() => {
+        if (petalasAtivas.length < 15) {
+            criarPetala();
+        }
+    }, 2000);
+}
+
+iniciarPetalas();
 
 function fugir(e) {
     e.preventDefault();
@@ -37,16 +82,28 @@ function fugir(e) {
 
 function aceitou() {
     const celebration = document.getElementById('celebration');
-    celebration.classList.add('active');
+    const container = document.querySelector('.container');
 
-    // Criar girassóis caindo
-    for (let i = 0; i < 50; i++) {
-        setTimeout(() => criarGirassol(), i * 100);
-    }
+    container.classList.add('esconder');
 
     setTimeout(() => {
-        window.location.href = 'https://youtu.be/Af7ieNv0wXY?t=93';
-    }, 4000);
+        celebration.classList.add('active');
+    }, 500);
+
+    // transição para noite
+    document.body.classList.remove('dia');
+    document.body.classList.add('noite');
+
+    petalasAtivas.forEach(p => p.remove());
+    petalasAtivas = [];
+
+    // Criar girassóis caindo
+    for (let i = 0; i < 500; i++) {
+        setTimeout(() => criarGirassol(), i * 100);
+    }
+    // setTimeout(() => {
+    //     window.location.href = 'https://youtu.be/Af7ieNv0wXY?t=93';
+    // }, 5000);
 }
 
 function criarGirassol() {
@@ -82,6 +139,6 @@ function easterEgg() {
         setTimeout(() => {
             easterEggMsg.classList.remove('ativo');
             cliquesGirassol = 0;
-        }, 6000);
+        }, 7000);
     }
 }

@@ -17,119 +17,35 @@ const frases = [
     "TÁ BOM... JÁ ENTENDI 😞",
 ];
 
-// CONFIGURAÇÃO DE ÁUDIO / FADE
-const FADE_DURATION = 5000; // ms
-const MAX_VOLUME = 0.3;     // volume máximo padrão
-const NIGHT_VOLUME = 0.2;   // volume desejado na transição dia->noite
-
-// garantir volume inicial 0 (evita som antes do fade-in)
-musicaFundo.volume = 0;
-
-// controle do fade atual (para permitir cancelar/evitar sobreposição)
-let currentFadeAnimation = null;
-let currentFadeCancel = null;
-
-/**
- * Faz fade para volume alvo usando requestAnimationFrame.
- * Retorna Promise que resolve quando o fade termina (ou é cancelado).
- */
-function fadeToVolume(audio, targetVolume, duration) {
-    // cancelar fade anterior, se houver
-    if (currentFadeCancel) {
-        currentFadeCancel(); // sinaliza cancelamento para a promise anterior
-        currentFadeCancel = null;
-    }
-    if (currentFadeAnimation) {
-        cancelAnimationFrame(currentFadeAnimation);
-        currentFadeAnimation = null;
-    }
-
-    const startVolume = audio.volume;
-    const startTime = performance.now();
-
-    let cancelled = false;
-    currentFadeCancel = () => { cancelled = true; };
-
-    // se vamos subir volume, garantir play (catch para autoplay errors)
-    if (targetVolume > 0 && audio.paused) {
-        audio.play().catch(() => { /* autoplay pode falhar, mas tentamos */ });
-    }
-
-    return new Promise(resolve => {
-        function step(now) {
-            if (cancelled) {
-                currentFadeAnimation = null;
-                currentFadeCancel = null;
-                resolve(); // promise resolve mesmo em cancelamento
-                return;
-            }
-            const elapsed = now - startTime;
-            const t = Math.min(1, elapsed / duration);
-            // interpolação linear
-            audio.volume = startVolume + (targetVolume - startVolume) * t;
-            audio.volume = Math.min(1, Math.max(0, audio.volume)); // clamp
-
-            if (t < 1) {
-                currentFadeAnimation = requestAnimationFrame(step);
-            } else {
-                // finalizado
-                currentFadeAnimation = null;
-                currentFadeCancel = null;
-                // se targetVolume = 0, pausar ao terminar
-                if (targetVolume === 0) {
-                    try { audio.pause(); } catch (e) { /* ignore */ }
-                }
-                resolve();
-            }
-        }
-
-        currentFadeAnimation = requestAnimationFrame(step);
-    });
-}
-
-function fadeIn(audio, duracao = 30000) {
-    // garante que maxVolume esteja no intervalo [0,1]
-    maxVolume = Math.min(1, Math.max(0, maxVolume));
-    return fadeToVolume(audio, maxVolume, duration);
-}
-
-function fadeOut(audio, duracao = 30000) {
-    return fadeToVolume(audio, 0, duration);
-}
-
 // Iniciar com tema dia
 document.body.classList.add('dia');
 
-// Função para alternar música de fundo
+// Tentar tocar música automaticamente
 window.addEventListener('load', () => {
+    // Navegadores modernos bloqueiam autoplay, então tentamos tocar com interação
     document.body.addEventListener('click', iniciarMusica, { once: true });
     document.body.addEventListener('touchstart', iniciarMusica, { once: true });
 });
 
 function iniciarMusica() {
     if (!musicaTocando) {
-        // fade-in até MAX_VOLUME
-        fadeIn(musicaFundo, FADE_DURATION, MAX_VOLUME).then(() => {
-            // garante estado correto após o fade (pode deixar true desde o início)
+        musicaFundo.play().then(() => {
+            musicaTocando = true;
+            musicControl.textContent = '🎵';
+        }).catch(err => {
+            console.log('Autoplay bloqueado:', err);
         });
-        musicaTocando = true;
-        musicControl.textContent = '🔊';
     }
 }
 
 function toggleMusic() {
     if (musicaTocando) {
-        // fade-out e atualizar estado quando terminar
-        fadeOut(musicaFundo, FADE_DURATION).then(() => {
-            // já pausado dentro de fadeToVolume
-        });
-        musicControl.textContent = '🔈';
+        musicaFundo.pause();
+        musicControl.textContent = '🔇';
         musicaTocando = false;
     } else {
-        fadeIn(musicaFundo, FADE_DURATION, MAX_VOLUME).then(() => {
-            // nada extra necessário
-        });
-        musicControl.textContent = '🔊';
+        musicaFundo.play();
+        musicControl.textContent = '🎵';
         musicaTocando = true;
     }
 }
@@ -177,6 +93,11 @@ function fugir(e) {
     e.preventDefault();
     tentativas++;
 
+    // Mostrar contador
+    contador.classList.add('ativo');
+    numTentativas.textContent = tentativas;
+
+    // Adicionar classe para mudar para position fixed
     btnNao.classList.add('fugindo');
 
     const maxX = window.innerWidth - btnNao.offsetWidth - 20;
@@ -189,10 +110,10 @@ function fugir(e) {
     btnNao.style.top = novoY + 'px';
 
     // Mudar o texto do botão com frases engraçadas
-    if (tentativas <= frases.length) {
-        btnNao.textContent = frases[tentativas - 1];
+    if (tentativas <= frasesEngracadas.length) {
+        btnNao.textContent = frasesEngracadas[tentativas - 1];
     } else {
-        btnNao.textContent = 'NÃO SOBROU NADA PRO BETA';
+        btnNao.textContent = 'DESISTE! CLICA NO SIM! 😭';
     }
 }
 
@@ -200,34 +121,35 @@ function aceitou() {
     const celebration = document.getElementById('celebration');
     const container = document.querySelector('.container');
 
+    // Esconder o container
     container.classList.add('esconder');
 
+    // Mostrar celebração após a animação
     setTimeout(() => {
         celebration.classList.add('active');
     }, 500);
 
-    // transição para noite
+    // Transição para noite
     document.body.classList.remove('dia');
     document.body.classList.add('noite');
 
+    // Esconder contador
+    contador.style.display = 'none';
+
+    // Remover pétalas suaves
     petalasAtivas.forEach(p => p.remove());
     petalasAtivas = [];
 
-    // SINCRONIZAR O AUDIO COM A TRANSIÇÃO:
-    // Faz um fade até NIGHT_VOLUME durante FADE_DURATION (sincronizado com a transição visual).
-    // Se preferir pausar totalmente, use fadeOut(musicaFundo, FADE_DURATION).
-    fadeToVolume(musicaFundo, Math.min(1, Math.max(0, NIGHT_VOLUME)), FADE_DURATION);
-
-    // Criar girassóis caindo
-    for (let i = 0; i < 50000; i++) {
-        setTimeout(() => criarGirassol(), i * 20);
+    // Criar girassóis caindo em celebração
+    for (let i = 0; i < 50; i++) {
+        setTimeout(() => criarGirassol(), i * 100);
     }
 }
 
 function criarGirassol() {
     const girassol = document.createElement('div');
     girassol.className = 'sunflower';
-    girassol.textContent = '💕';
+    girassol.textContent = '🌻';
 
     girassol.style.left = Math.random() * window.innerWidth + 'px';
     girassol.style.top = '-50px';
@@ -257,6 +179,44 @@ function easterEgg() {
         setTimeout(() => {
             easterEggMsg.classList.remove('ativo');
             cliquesGirassol = 0;
-        }, 7000);
+        }, 4000);
     }
+}
+
+// Função para mostrar texto especial
+function mostrarTextoEspecial() {
+    const overlay = document.getElementById('textoEspecialOverlay');
+    overlay.classList.add('ativo');
+}
+
+// Função para fechar texto especial
+function fecharTextoEspecial() {
+    const overlay = document.getElementById('textoEspecialOverlay');
+    overlay.classList.remove('ativo');
+}
+
+// Função para baixar certificado de namoro
+function baixarCertificado() {
+    // Criar um link temporário para download do PDF
+    const link = document.createElement('a');
+    link.href = 'data:application/pdf;base64,JVBERi0xLjQKJeLjz9MKMyAwIG9iago8PC9UeXBlL1BhZ2UvUGFyZW50IDIgMCBSL1Jlc291cmNlczw8L0ZvbnQ8PC9GMSAx' +
+        'IDAgUj4+Pj4vTWVkaWFCb3hbMCAwIDYxMiA3OTJdL0NvbnRlbnRzIDQgMCBSPj4KZW5kb2JqCjQgMCBvYmoKPDwvRmls' +
+        'dGVyL0ZsYXRlRGVjb2RlL0xlbmd0aCAyODU+PgpzdHJlYW0KeJx9kU1uwzAMhPc+Ba9TQJYoSpZ3bYG0aJEWRZEe' +
+        'oO9vnNQB0qJdGZQ+kZqRyZ1fq/V2Xb/Xn8vX/ev6sX5dv65f16/r1/Xr+nX9un5dv65f16/r1/Xr+nX9un5dv65f' +
+        '16/r1/Xr+nX9un5dv65f16/r1/Xr+nX9un5dv65f16/r1/Xr+nX9un5dv65f16/r1/Xr+nX9un5dv65f16/r1/Xr' +
+        '+nX9un5dv65f16/r1/Xr+nX9un5dv65f16/r1/XrVK3XzbIMgoKSoqKioqKioqKioqKioqKioqKioqKioqKioqKi' +
+        'oqKioqKioqKiCmVuZHN0cmVhbQplbmRvYmoKMSAwIG9iago8PC9UeXBlL0ZvbnQvU3VidHlwZS9UeXBlMS9CYXNl' +
+        'Rm9udC9IZWx2ZXRpY2E+PgplbmRvYmoKMiAwIG9iago8PC9UeXBlL1BhZ2VzL0NvdW50IDEvS2lkc1szIDAgUl0+' +
+        'PgplbmRvYmoKNSAwIG9iago8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFI+PgplbmRvYmoKNiAwIG9iago8PC9Q' +
+        'cm9kdWNlcihQREZLaXQpL0NyZWF0b3IoUERGS2l0KT4+CmVuZG9iagp4cmVmCjAgNwowMDAwMDAwMDAwIDY1NTM1' +
+        'IGYgCjAwMDAwMDA0MzEgMDAwMDAgbiAKMDAwMDAwMDUwMCAwMDAwMCBuIAowMDAwMDAwMDA5IDAwMDAwIG4gCjAw' +
+        'MDAwMDAxMjUgMDAwMDAgbiAKMDAwMDAwMDU1NyAwMDAwMCBuIAowMDAwMDAwNjA2IDAwMDAwIG4gCnRyYWlsZXIK' +
+        'PDwvU2l6ZSA3L1Jvb3QgNSAwIFIvSW5mbyA2IDAgUj4+CnN0YXJ0eHJlZgo2NTgKJSVFT0Y=';
+    link.download = 'certificado.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Mostrar mensagem de sucesso
+    alert('Certificado baixado com sucesso!');
 }

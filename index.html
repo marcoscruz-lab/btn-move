@@ -6,19 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pedido Especial</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
     <!-- audio de fundo -->
     <audio id="musicaFundo" loop>
-        <source src="files/musics/sound_bg.mp3" type="audio/mpeg">
+        <source src="sound/sound_bg.mp3" type="audio/mpeg">
     </audio>
 
-    <button class="music-control" id="musicControl" onclick="toggleMusic()" title="Controlar Música">🎵</button>
+    <!-- <button class="music-control" id="musicControl" onclick="toggleMusic()" title="Controlar Música">🎵</button> -->
 
     <div class="easter-egg-msg" id="easterEgg">
-        <p>🌻✨ Você encontrou o segredo! ✨🌻</p>
         <p style="font-size: 1rem; margin-top: 1rem; font-style: italic;">
             "Os girassóis sempre olham para o sol,<br>
             assim como eu sempre olho para você" <br>Te amo!
@@ -36,9 +35,129 @@
     </div>
 
     <div class="celebration" id="celebration">
-        <h2>VOCÊ DISSE SIM!</h2>
-        <p>Você me fez a pessoa mais feliz do mundo!</p>
+        <p>Nem sei o que digo agora. </p> 
+        <p>Listei algumas coisas sobre você.</p>
         <div class="celebration-sunflowers">🥰 😍 ❤️</div>
+        <button class="btn-certificado" onclick="mostrarTextoEspecial()">100 Motivos para Te Amar</button>
+    </div>
+
+    <div class="texto-especial-overlay" id="textoEspecialOverlay">
+        <div class="texto-especial-container">
+            <div class="texto-especial-header">
+                <h3>100 Motivos para Te Amar</h3>
+                <!-- <p style="font-style: italic; font-size: 1.1rem; color: #f4d03f;">vs. 1 para ir embora</p> -->
+            </div>
+            <div class="texto-especial-content">
+                <p>1. Seus olhos</p>
+                <p>2. Sua risada</p>
+                <p>3. Seu coração</p>
+                <p>4. Sua companhia</p>
+                <p>5. Sua compaixão</p>
+                <p>6. Seu esforço</p>
+                <p>7. Seus cabelos</p>
+                <p>8. Sua positividade</p>
+                <p>9. Sua fé</p>
+                <p>10. Sua animação</p>
+                <p>11. Sua inteligência</p>
+                <p>12. Seu carisma</p>
+                <p>13. Sua bondade</p>
+                <p>14. Seu estilo</p>
+                <p>15. Seu brilho</p>
+                <p>16. Seu lado artístico</p>
+                <p>17. Sua doçura</p>
+                <p>18. Seu abraço</p>
+                <p>19. Seu apoio</p>
+                <p>20. Seu toque</p>
+                <p>21. Seu jeito</p>
+                <p>22. Sua presença</p>
+                <p>23. Sua educação</p>
+                <p>24. Sua força</p>
+                <p>25. Seu sorriso</p>
+                <p>26. Seu carinho</p>
+                <p>27. Seu humor</p>
+                <p>28. Sua sinceridade</p>
+                <p>29. Seu charme</p>
+                <p>30. Suas piadas</p>
+                <p>31. Sua voz</p>
+                <p>32. Sua paciência</p>
+                <p>33. Seu corpo</p>
+                <p>34. Seus trejeitos</p>
+                <p>35. Seus ideais</p>
+                <p>36. Seus gostos</p>
+                <p>37. Seu otimismo</p>
+                <p>38. Suas emoções</p>
+                <p>39. Sua lealdade</p>
+                <p>40. Sua gentileza</p>
+                <p>41. Seu encanto</p>
+                <p>42. Sua energia</p>
+                <p>43. Seu afeto</p>
+                <p>44. Seu calor</p>
+                <p>45. Sua cor</p>
+                <p>46. Sua suavidade</p>
+                <p>47. Seu ritmo</p>
+                <p>48. Suas pintinhas</p>
+                <p>49. Sua amizade</p>
+                <p>50. Seus sonhos</p>
+                <p>51. Suas conversas</p>
+                <p>52. Sua beleza</p>
+                <p>53. Sua perseverança</p>
+                <p>54. Sua proteção</p>
+                <p>55. Sua simpatia</p>
+                <p>56. Sua personalidade</p>
+                <p>57. Sua escrita</p>
+                <p>58. Seu brilho</p>
+                <p>59. Sua alegria</p>
+                <p>60. Sua sensibilidade</p>
+                <p>61. Seu entendimento</p>
+                <p>62. Suas artes</p>
+                <p>63. Seu vínculo</p>
+                <p>64. Seu olhar</p>
+                <p>65. Sua boca</p>
+                <p>66. Seu entusiasmo</p>
+                <p>67. Sua ternura</p>
+                <p>68. Seus beijos</p>
+                <p>69. Sua graça</p>
+                <p>70. Sua dedicação</p>
+                <p>71. Sua imaginação</p>
+                <p>72. Suas gargalhadas</p>
+                <p>73. Sua calma</p>
+                <p>74. Seu foco</p>
+                <p>75. Sua confiança</p>
+                <p>76. Sua compreensão</p>
+                <p>77. Sua empatia</p>
+                <p>78. Sua coragem</p>
+                <p>79. Seu cuidado</p>
+                <p>80. Sua paz</p>
+                <p>81. Seu aconchego</p>
+                <p>82. Sua fala</p>
+                <p>83. Suas curvas</p>
+                <p>84. Seu caminhar</p>
+                <p>85. Sua devoção</p>
+                <p>86. Seus conselhos</p>
+                <p>87. Sua altura</p>
+                <p>88. Sua paz</p>
+                <p>89. Suas brincadeiras</p>
+                <p>90. Suas expressões</p>
+                <p>91. Seus bordões</p>
+                <p>92. Sua empolgação</p>
+                <p>93. Seu gosto musical</p>
+                <p>94. Sua diversão</p>
+                <p>95. Seu acolhimento</p>
+                <p>96. Seu amor</p>
+                <p>97. Seu sabor</p>
+                <p>98. Seu espírito</p>
+                <p>99. Seus defeitos</p>
+                <p>100. Enfim... Você</p>
+                <!-- <div class="texto-especial-footer">
+                    💔 E o motivo para eu ir embora:<br>
+                    Você não sentir o mesmo.
+                </div> -->
+            </div>
+            <div class="texto-especial-buttons">
+                <button class="btn-fechar-texto" onclick="fecharTextoEspecial()">Fechar</button>
+                <button class="btn-baixar-cert" onclick="baixarCertificado()">Baixar Certificado</button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>

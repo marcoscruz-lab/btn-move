@@ -93,11 +93,6 @@ function fugir(e) {
     e.preventDefault();
     tentativas++;
 
-    // Mostrar contador
-    contador.classList.add('ativo');
-    numTentativas.textContent = tentativas;
-
-    // Adicionar classe para mudar para position fixed
     btnNao.classList.add('fugindo');
 
     const maxX = window.innerWidth - btnNao.offsetWidth - 20;
@@ -110,10 +105,10 @@ function fugir(e) {
     btnNao.style.top = novoY + 'px';
 
     // Mudar o texto do botão com frases engraçadas
-    if (tentativas <= frasesEngracadas.length) {
-        btnNao.textContent = frasesEngracadas[tentativas - 1];
+    if (tentativas <= frases.length) {
+        btnNao.textContent = frases[tentativas - 1];
     } else {
-        btnNao.textContent = 'DESISTE! CLICA NO SIM! 😭';
+        btnNao.textContent = 'NÃO SOBROU NADA PRO BETA';
     }
 }
 

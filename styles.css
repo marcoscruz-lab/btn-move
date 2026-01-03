@@ -35,7 +35,7 @@ body::before {
     height: 100%;
     background: linear-gradient(135deg, rgba(44, 95, 141, 0.7) 0%, rgba(74, 123, 167, 0.6) 50%, rgba(244, 208, 63, 0.5) 100%);
     pointer-events: none;
-    transition: background 2s ease-in-out;
+    transition: background 5s ease-in-out;
 }
 
 body.dia::before {
@@ -233,12 +233,12 @@ button:hover {
     align-items: center;
     flex-direction: column;
     animation: fadeIn 0.5s;
-    background: linear-gradient(165deg, #f4d03f 0%, #f3cd34 100%);
+    background: linear-gradient(165deg, #f4d03f 0%, #2c5f8d 100%);
     padding: 3rem 2rem;
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.6);
     max-width: 550px;
-    border: 3px solid #f4d03f;
+    border: 3px solid #f3f3f3;
     z-index: 1000;
 }
 
@@ -268,6 +268,138 @@ button:hover {
     font-size: 4rem;
     margin-top: 2rem;
     animation: bounceIn 1.2s;
+}
+
+.btn-certificado {
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: white;
+    color: #2c5f8d;
+    border: 3px solid white;
+    border-radius: 50px;
+    font-family: 'Georgia', serif;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: bounceIn 1.5s;
+}
+
+.btn-certificado:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.btn-certificado:active {
+    transform: translateY(-1px);
+}
+
+.texto-especial-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s;
+}
+
+.texto-especial-overlay.ativo {
+    display: flex;
+}
+
+.texto-especial-container {
+    background: linear-gradient(165deg, #fffef7 0%, #fef8e8 100%);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 3px solid #f4d03f;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    max-width: 700px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    animation: popIn 0.5s;
+}
+
+.texto-especial-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #2c5f8d;
+}
+
+.texto-especial-header h3 {
+    font-size: 1.8rem;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+.texto-especial-content {
+    color: #2c5f8d;
+    font-family: 'Georgia', serif;
+    line-height: 1.8;
+    column-count: 2;
+    column-gap: 2rem;
+    text-align: left;
+}
+
+.texto-especial-content p {
+    margin-bottom: 0.3rem;
+    font-size: 0.95rem;
+}
+
+.texto-especial-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid #f4d03f;
+    text-align: center;
+    column-span: all;
+    font-style: italic;
+    font-weight: bold;
+    color: #2c5f8d;
+    font-size: 1.1rem;
+}
+
+.texto-especial-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.btn-fechar-texto,
+.btn-baixar-cert {
+    padding: 0.8rem 1.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    font-family: 'Georgia', serif;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-fechar-texto {
+    background: #7aa8c9;
+    color: white;
+    border: 3px solid #5a8aad;
+}
+
+.btn-baixar-cert {
+    background: #f4d03f;
+    color: #2c5f8d;
+    border: 3px solid #e6c230;
+}
+
+.btn-fechar-texto:hover,
+.btn-baixar-cert:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes slideIn {
@@ -403,6 +535,37 @@ button:hover {
 
     .celebration-sunflowers {
         font-size: 2.5rem;
+    }
+
+    .celebration-sunflowers {
+        font-size: 2.5rem;
+    }
+
+    .btn-certificado {
+        font-size: 0.95rem;
+        padding: 0.8rem 1.5rem;
+    }
+
+    .texto-especial-content {
+        column-count: 1;
+        font-size: 0.85rem;
+    }
+
+    .texto-especial-header h3 {
+        font-size: 1.3rem;
+    }
+
+    .texto-especial-container {
+        padding: 1.5rem;
+    }
+
+    .texto-especial-buttons {
+        flex-direction: column;
+    }
+
+    .btn-fechar-texto,
+    .btn-baixar-cert {
+        width: 100%;
     }
 
     .container::before,

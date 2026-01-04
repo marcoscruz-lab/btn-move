@@ -20,23 +20,8 @@ const frases = [
 // Iniciar com tema dia
 document.body.classList.add('dia');
 
-// Tentar tocar música automaticamente
-window.addEventListener('load', () => {
-    // Navegadores modernos bloqueiam autoplay, então tentamos tocar com interação
-    document.body.addEventListener('click', iniciarMusica, { once: true });
-    document.body.addEventListener('touchstart', iniciarMusica, { once: true });
-});
-
-function iniciarMusica() {
-    if (!musicaTocando) {
-        musicaFundo.play().then(() => {
-            musicaTocando = true;
-            musicControl.textContent = '🎵';
-        }).catch(err => {
-            console.log('Autoplay bloqueado:', err);
-        });
-    }
-}
+// configura volume da música de fundo
+musicaFundo.volume = 0.1;
 
 function toggleMusic() {
     if (musicaTocando) {
@@ -128,33 +113,45 @@ function aceitou() {
     document.body.classList.remove('dia');
     document.body.classList.add('noite');
 
-    // Esconder contador
-    contador.style.display = 'none';
-
     // Remover pétalas suaves
     petalasAtivas.forEach(p => p.remove());
     petalasAtivas = [];
 
     // Criar girassóis caindo em celebração
-    for (let i = 0; i < 50; i++) {
-        setTimeout(() => criarGirassol(), i * 100);
+    for (let i = 0; i < 50000; i++) {
+        setTimeout(() => criarGirassol(), i * 20);
     }
+
+    // iniciar musica apos clicar em sim
+    setTimeout(() => {
+        musicaFundo.play().then(() => {
+            musicaTocando = true;
+            musicControl.style.display = 'flex';
+            musicControl.textContent = '🎵';
+        }).catch(err => {
+            console.log('Erro ao tocar música:', err);
+        });
+    }, 500);
 }
 
 function criarGirassol() {
-    const girassol = document.createElement('div');
-    girassol.className = 'sunflower';
-    girassol.textContent = '🌻';
+    const emojis = [...'🩵💙'];
 
-    girassol.style.left = Math.random() * window.innerWidth + 'px';
-    girassol.style.top = '-50px';
+    emojis.forEach(emoji => {
+        const girassol = document.createElement('div');
+        girassol.className = 'sunflower';
+        girassol.textContent = emoji;
 
-    const duracao = 3000 + Math.random() * 2000;
-    girassol.style.animationDuration = duracao + 'ms';
+        girassol.style.left = Math.random() * window.innerWidth + 'px';
+        girassol.style.top = '-50px';
 
-    document.body.appendChild(girassol);
+        const duracao = 3000 + Math.random() * 2000;
+        girassol.style.animationDuration = duracao + 'ms';
 
-    setTimeout(() => girassol.remove(), duracao);
+        document.body.appendChild(girassol);
+
+        setTimeout(() => girassol.remove(), duracao);
+    });
 }
 
 // Easter Egg - Clicar no girassol
@@ -174,7 +171,7 @@ function easterEgg() {
         setTimeout(() => {
             easterEggMsg.classList.remove('ativo');
             cliquesGirassol = 0;
-        }, 4000);
+        }, 8000);
     }
 }
 
@@ -194,19 +191,7 @@ function fecharTextoEspecial() {
 function baixarCertificado() {
     // Criar um link temporário para download do PDF
     const link = document.createElement('a');
-    link.href = 'data:application/pdf;base64,JVBERi0xLjQKJeLjz9MKMyAwIG9iago8PC9UeXBlL1BhZ2UvUGFyZW50IDIgMCBSL1Jlc291cmNlczw8L0ZvbnQ8PC9GMSAx' +
-        'IDAgUj4+Pj4vTWVkaWFCb3hbMCAwIDYxMiA3OTJdL0NvbnRlbnRzIDQgMCBSPj4KZW5kb2JqCjQgMCBvYmoKPDwvRmls' +
-        'dGVyL0ZsYXRlRGVjb2RlL0xlbmd0aCAyODU+PgpzdHJlYW0KeJx9kU1uwzAMhPc+Ba9TQJYoSpZ3bYG0aJEWRZEe' +
-        'oO9vnNQB0qJdGZQ+kZqRyZ1fq/V2Xb/Xn8vX/ev6sX5dv65f16/r1/Xr+nX9un5dv65f16/r1/Xr+nX9un5dv65f' +
-        '16/r1/Xr+nX9un5dv65f16/r1/Xr+nX9un5dv65f16/r1/Xr+nX9un5dv65f16/r1/Xr+nX9un5dv65f16/r1/Xr' +
-        '+nX9un5dv65f16/r1/Xr+nX9un5dv65f16/r1/XrVK3XzbIMgoKSoqKioqKioqKioqKioqKioqKioqKioqKioqKi' +
-        'oqKioqKioqKiCmVuZHN0cmVhbQplbmRvYmoKMSAwIG9iago8PC9UeXBlL0ZvbnQvU3VidHlwZS9UeXBlMS9CYXNl' +
-        'Rm9udC9IZWx2ZXRpY2E+PgplbmRvYmoKMiAwIG9iago8PC9UeXBlL1BhZ2VzL0NvdW50IDEvS2lkc1szIDAgUl0+' +
-        'PgplbmRvYmoKNSAwIG9iago8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFI+PgplbmRvYmoKNiAwIG9iago8PC9Q' +
-        'cm9kdWNlcihQREZLaXQpL0NyZWF0b3IoUERGS2l0KT4+CmVuZG9iagp4cmVmCjAgNwowMDAwMDAwMDAwIDY1NTM1' +
-        'IGYgCjAwMDAwMDA0MzEgMDAwMDAgbiAKMDAwMDAwMDUwMCAwMDAwMCBuIAowMDAwMDAwMDA5IDAwMDAwIG4gCjAw' +
-        'MDAwMDAxMjUgMDAwMDAgbiAKMDAwMDAwMDU1NyAwMDAwMCBuIAowMDAwMDAwNjA2IDAwMDAwIG4gCnRyYWlsZXIK' +
-        'PDwvU2l6ZSA3L1Jvb3QgNSAwIFIvSW5mbyA2IDAgUj4+CnN0YXJ0eHJlZgo2NTgKJSVFT0Y=';
+    link.href = '';
     link.download = 'certificado.pdf';
     document.body.appendChild(link);
     link.click();

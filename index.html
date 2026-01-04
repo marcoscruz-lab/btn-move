@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedido Especial</title>
+    <title>O não eu já tenho</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 </head>
@@ -15,7 +15,7 @@
         <source src="sound/sound_bg.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- <button class="music-control" id="musicControl" onclick="toggleMusic()" title="Controlar Música">🎵</button> -->
+    <button class="music-control" id="musicControl" onclick="toggleMusic()" title="Controlar Música" style="display: none;">🎵</button>
 
     <div class="easter-egg-msg" id="easterEgg">
         <p style="font-size: 1rem; margin-top: 1rem; font-style: italic;">
@@ -25,7 +25,7 @@
     </div>
 
     <div class="container">
-        <div class="emoji" id="girassol" onclick="easterEgg()">🌻</div>
+        <div class="emoji" id="girassol" onclick="easterEgg()">🩵🌻💙</div>
         <p>Então... eu gosto muito de você e não consigo mais imaginar meus dias sem a sua presença</p>
         <h1>Você aceita namorar comigo?</h1>
         <div class="buttons">
@@ -35,10 +35,10 @@
     </div>
 
     <div class="celebration" id="celebration">
-        <p>Nem sei o que digo agora. </p> 
-        <p>Listei algumas coisas sobre você.</p>
-        <div class="celebration-sunflowers">🥰 😍 ❤️</div>
-        <button class="btn-certificado" onclick="mostrarTextoEspecial()">100 Motivos para Te Amar</button>
+        <p>Os 100 motivos que me fizeram</p> 
+        <p>me apaixonar por você cada dia mais.</p>
+        <div class="celebration-sunflowers">🩵💙🩵</div>
+        <button class="btn-certificado" onclick="mostrarTextoEspecial()">100 Motivos</button>
     </div>
 
     <div class="texto-especial-overlay" id="textoEspecialOverlay">
@@ -149,13 +149,13 @@
                 <p>99. Seus defeitos</p>
                 <p>100. Enfim... Você</p>
                 <!-- <div class="texto-especial-footer">
-                    💔 E o motivo para eu ir embora:<br>
+                    E o motivo para eu ir embora:<br>
                     Você não sentir o mesmo.
                 </div> -->
             </div>
             <div class="texto-especial-buttons">
                 <button class="btn-fechar-texto" onclick="fecharTextoEspecial()">Fechar</button>
-                <button class="btn-baixar-cert" onclick="baixarCertificado()">Baixar Certificado</button>
+                <!-- <button class="btn-baixar-cert" onclick="baixarCertificado()">Baixar Certificado</button> -->
             </div>
         </div>
     </div>

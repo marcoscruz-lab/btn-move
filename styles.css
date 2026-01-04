@@ -19,7 +19,7 @@ body {
 }
 
 body.dia {
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Vincent_van_Gogh_-_Wheat_Field_with_Cypresses_-_Google_Art_Project.jpg/960px-Vincent_van_Gogh_-_Wheat_Field_with_Cypresses_-_Google_Art_Project.jpg');
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg/960px-Vincent_van_Gogh_-_Almond_blossom_-_Google_Art_Project.jpg');
 }
 
 body.noite {
@@ -33,21 +33,21 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(44, 95, 141, 0.7) 0%, rgba(74, 123, 167, 0.6) 50%, rgba(244, 208, 63, 0.5) 100%);
+    /* background: linear-gradient(135deg, rgba(44, 95, 141, 0.7) 0%, rgba(74, 123, 167, 0.6) 50%, rgba(244, 208, 63, 0.5) 100%); */
     pointer-events: none;
     transition: background 5s ease-in-out;
 }
 
-body.dia::before {
+/* body.dia::before {
     background: linear-gradient(135deg, rgba(135, 206, 235, 0.4) 0%, rgba(255, 223, 128, 0.5) 50%, rgba(244, 208, 63, 0.6) 100%);
 }
 
 body.noite::before {
     background: linear-gradient(135deg, rgba(25, 25, 112, 0.7) 0%, rgba(44, 95, 141, 0.6) 50%, rgba(70, 130, 180, 0.5) 100%);
-}
+} */
 
 .container {
-    background: linear-gradient(165deg, #fffef7 0%, #fef8e8 100%);
+    background: linear-gradient(165deg, #fffef7 0%, #fceec7 100%);
     padding: 3rem 2rem;
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.6);
@@ -74,7 +74,7 @@ body.noite::before {
 }
 
 .container::before {
-    content: '🌻';
+    content: '🩵';
     position: absolute;
     top: -25px;
     left: -25px;
@@ -83,7 +83,7 @@ body.noite::before {
 }
 
 .container::after {
-    content: '🌻';
+    content: '💙';
     position: absolute;
     bottom: -25px;
     right: -25px;
@@ -233,12 +233,12 @@ button:hover {
     align-items: center;
     flex-direction: column;
     animation: fadeIn 0.5s;
-    background: linear-gradient(165deg, #f4d03f 0%, #2c5f8d 100%);
+    background: linear-gradient(165deg, #fffef7 0%, #fceec7 100%);
     padding: 3rem 2rem;
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.6);
     max-width: 550px;
-    border: 3px solid #f3f3f3;
+    border: 3px solid #f4d03f;
     z-index: 1000;
 }
 
@@ -247,7 +247,7 @@ button:hover {
 }
 
 .celebration h2 {
-    color: #fffef7;
+    color: #2c5f8d;
     font-size: 3rem;
     margin-bottom: 1rem;
     animation: bounceIn 0.8s;
@@ -257,7 +257,7 @@ button:hover {
 }
 
 .celebration p {
-    color: #fffef7;
+    color: #2c5f8d;
     font-size: 1.5rem;
     animation: bounceIn 1s;
     font-family: 'Georgia', serif;
@@ -572,7 +572,7 @@ button:hover {
     .container::after {
         font-size: 2rem;
     }
-
+    
     .music-control {
         width: 50px;
         height: 50px;

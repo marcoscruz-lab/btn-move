@@ -8,12 +8,12 @@ let musicaTocando = false;
 
 const frases = [
     "EXPERIMENTA O SIM? 😊",
+    "O SIM É MELHOR! 😄",
     "NÃO? 🥺",
     "POR QUE NÃO? 🤔",
     "ASSISTO CREPÚSCULO COM VOCÊ 🌅",
     "URUCUBADA KKKKKKK",
     "NEM FEZ SENTIDO A ANTERIOR 😅",
-    "O SIM É MELHOR! 😄",
     "TÁ BOM... JÁ ENTENDI 😞",
 ];
 
@@ -89,11 +89,10 @@ function fugir(e) {
     btnNao.style.left = novoX + 'px';
     btnNao.style.top = novoY + 'px';
 
-    // Mudar o texto do botão com frases engraçadas
     if (tentativas <= frases.length) {
         btnNao.textContent = frases[tentativas - 1];
     } else {
-        btnNao.textContent = 'NÃO SOBROU NADA PRO BETA';
+        btnNao.textContent = 'COMPREENSIVO, PASSAR BEM';
     }
 }
 
@@ -107,7 +106,7 @@ function aceitou() {
     // Mostrar celebração após a animação
     setTimeout(() => {
         celebration.classList.add('active');
-    }, 500);
+    }, 1000);
 
     // Transição para noite
     document.body.classList.remove('dia');
@@ -117,9 +116,9 @@ function aceitou() {
     petalasAtivas.forEach(p => p.remove());
     petalasAtivas = [];
 
-    // Criar girassóis caindo em celebração
+    // Criar emojis caindo em celebração
     for (let i = 0; i < 50000; i++) {
-        setTimeout(() => criarGirassol(), i * 20);
+        setTimeout(() => criarEmoji(), i * 20);
     }
 
     // iniciar musica apos clicar em sim
@@ -134,7 +133,7 @@ function aceitou() {
     }, 500);
 }
 
-function criarGirassol() {
+function criarEmoji() {
     const emojis = [...'🩵💙'];
 
     emojis.forEach(emoji => {
@@ -154,23 +153,22 @@ function criarGirassol() {
     });
 }
 
-// Easter Egg - Clicar no girassol
-let cliquesGirassol = 0;
+// Easter Egg
+let cliquesEmoji = 0;
 function easterEgg() {
-    cliquesGirassol++;
+    cliquesEmoji++;
 
-    if (cliquesGirassol === 3) {
+    if (cliquesEmoji === 3) {
         const easterEggMsg = document.getElementById('easterEgg');
         easterEggMsg.classList.add('ativo');
 
-        // Criar explosão de girassóis
         for (let i = 0; i < 20; i++) {
-            setTimeout(() => criarGirassol(), i * 50);
+            setTimeout(() => criarEmoji(), i * 50);
         }
 
         setTimeout(() => {
             easterEggMsg.classList.remove('ativo');
-            cliquesGirassol = 0;
+            cliquesEmoji = 0;
         }, 8000);
     }
 }
@@ -187,7 +185,6 @@ function fecharTextoEspecial() {
     overlay.classList.remove('ativo');
 }
 
-// Função para baixar certificado de namoro
 function baixarCertificado() {
     // Criar um link temporário para download do PDF
     const link = document.createElement('a');

@@ -431,10 +431,22 @@ button:hover {
     text-align: center;
     display: none;
     animation: popIn 0.5s;
+    max-width: 500px;
+    width: 90%;
 }
 
 .easter-egg-msg.ativo {
     display: block;
+}
+
+.easter-egg-img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 15px;
+    border: 3px solid #2c5f8d;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 @keyframes popIn {
@@ -568,11 +580,27 @@ button:hover {
         width: 100%;
     }
 
+    .easter-egg-msg {
+        padding: 1.5rem;
+        font-size: 1.1rem;
+    }
+
+    .easter-egg-img {
+        max-width: 100%;
+    }
+
     .container::before,
     .container::after {
         font-size: 2rem;
     }
-    
+
+    .contador {
+        top: 10px;
+        right: 10px;
+        font-size: 0.9rem;
+        padding: 0.7rem 1rem;
+    }
+
     .music-control {
         width: 50px;
         height: 50px;

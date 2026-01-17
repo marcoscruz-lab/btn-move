@@ -355,14 +355,14 @@ button:hover {
 
 .texto-especial-footer {
     margin-top: 2rem;
-    padding-top: 1.5rem;
+    padding-top: 2rem;
     border-top: 2px solid #f4d03f;
-    text-align: center;
+    text-align: auto;
     column-span: all;
     font-style: italic;
     font-weight: bold;
     color: #2c5f8d;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .texto-especial-buttons {

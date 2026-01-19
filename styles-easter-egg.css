@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Vincent_van_Gogh_-_Wheat_Field_with_Cypresses_-_Google_Art_Project.jpg/960px-Vincent_van_Gogh_-_Wheat_Field_with_Cypresses_-_Google_Art_Project.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.container {
+    background: rgba(197, 177, 28, 0.98);
+    padding: 3rem;
+    border-radius: 20px;
+    border: 4px solid #2c5f8d;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    text-align: center;
+    animation: aparecer 0.5s;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.easter-egg-img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 15px;
+    border: 3px solid #2c5f8d;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    color: #2c5f8d;
+    font-size: 2rem;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+p {
+    color: #2c5f8d;
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.girassois {
+    font-size: 3rem;
+    margin: 1.5rem 0;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 2rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+}

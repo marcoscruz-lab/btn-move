@@ -155,19 +155,25 @@ function criarEmoji() {
 
 // Easter Egg
 let cliquesEmoji = 0;
+let easterEggWindow = null;
 function easterEgg() {
     cliquesEmoji++;
 
     if (cliquesEmoji === 3) {
-        const easterEggMsg = document.getElementById('easterEgg');
-        easterEggMsg.classList.add('ativo');
+        easterEggWindow = window.open(
+            'easter-egg.html',
+            'easter-egg',
+            'width=700,height=600'
+        );
 
         for (let i = 0; i < 20; i++) {
             setTimeout(() => criarEmoji(), i * 50);
         }
 
         setTimeout(() => {
-            easterEggMsg.classList.remove('ativo');
+            if (easterEggWindow && !easterEggWindow.closed) {
+                easterEggWindow.close();
+            }
             cliquesEmoji = 0;
         }, 8000);
     }

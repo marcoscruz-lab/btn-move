@@ -68,7 +68,6 @@ body.noite::before {
 .container p {
     color: #2c5f8d;
     font-size: 1rem;
-    animation: bounceIn 1s;
     font-family: 'Georgia', serif;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
@@ -105,6 +104,7 @@ h1 {
     color: #2c5f8d;
     font-size: 2.2rem;
     margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
     line-height: 1.4;
     font-family: 'Georgia', serif;
     text-shadow: 2px 2px 4px rgba(244, 208, 63, 0.3);
